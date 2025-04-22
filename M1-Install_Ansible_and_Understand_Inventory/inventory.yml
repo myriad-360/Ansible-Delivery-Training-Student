@@ -1,0 +1,22 @@
+all:
+  children:
+    cisco:
+      hosts:
+        c8000v:
+          ansible_host: 192.168.232.253
+          ansible_user: labuser
+          ansible_password: "livestock Taco4"
+          ansible_network_os: ios
+          ansible_connection: network_cli
+
+    paloalto:
+      hosts:
+        pa-fw:
+          ansible_host: 192.168.232.254
+          ansible_user: labuser
+          ansible_password: "livestock Taco4"
+          ansible_network_os: panos
+          ansible_connection: httpapi
+          ansible_httpapi_use_ssl: false
+          ansible_httpapi_validate_certs: false
+          ansible_httpapi_port: 443
