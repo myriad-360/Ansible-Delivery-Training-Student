@@ -1,5 +1,10 @@
 ## 📦 Prerequisites
 
+Install required packages
+```bash
+sudo dnf install -y python3-pip
+```
+
 Install required collections:
 ```bash
 ansible-galaxy collection install -r requirements.yml
