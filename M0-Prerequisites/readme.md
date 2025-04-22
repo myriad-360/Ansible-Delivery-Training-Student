@@ -2,7 +2,7 @@
 
 Install required packages
 ```bash
-sudo dnf install -y python3-pip
+sudo dnf install -y python3-pip sshpass
 ```
 
 Install required collections:
