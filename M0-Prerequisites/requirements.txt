@@ -1,0 +1,5 @@
+paramiko
+netmiko
+pyyaml
+jxmlease
+pan-python
