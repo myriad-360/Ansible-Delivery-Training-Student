@@ -4,23 +4,20 @@
   gather_facts: yes
 
   tasks:
-    - name: Gather Cisco facts
-      ios_facts:
+  - name: Retrieve NTP configuration from Cisco 8000v
+    hosts: cisco
+    gather_facts: no
+    connection: network_cli
 
-    - name: Retrieve NTP configuration from Cisco 8000v
-      hosts: cisco
-      gather_facts: no
-      connection: network_cli
+    tasks:
+      - name: Gather NTP configuration
+        cisco.ios.ios_ntp_global:
+          state: gathered
+        register: ntp_config
 
-      tasks:
-        - name: Gather NTP configuration
-          cisco.ios.ios_ntp_global:
-            state: gathered
-          register: ntp_config
-
-        - name: Display NTP configuration
-          debug:
-            var: ntp_config.gathered
+      - name: Display NTP configuration
+        debug:
+          var: ntp_config.gathered
 
 - name: Check NTP configuration on Palo Alto device
   hosts: paloalto
