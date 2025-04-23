@@ -38,6 +38,6 @@
     - name: Print configured NTP server names from Palo Alto
       debug:
         msg:
-          - "NTP Server 1: {{ ntp_output.stdout['response']['result']['ntp-server-1']['name'] }}"
-          - "NTP Server 2: {{ ntp_output.stdout['response']['result']['ntp-server-2']['name'] }}"
-      when: "'ntp-server-1' in ntp_output.stdout['response']['result']"
+          - "NTP Server 1: {{ ntp_output.stdout['response']['result']['ntp-server-1']['name'] | default('N/A') }}"
+          - "NTP Server 2: {{ ntp_output.stdout['response']['result']['ntp-server-2']['name'] | default('N/A') }}"
+      when: ntp_output.stdout is mapping
