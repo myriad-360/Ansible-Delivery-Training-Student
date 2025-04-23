@@ -3,3 +3,4 @@ netmiko
 pyyaml
 jxmlease
 pan-python
+ansible-pylibssh
