@@ -1,0 +1,43 @@
+
+
+---
+- name: Show NTP settings from Cisco and Palo Alto devices
+  hosts: all
+  gather_facts: no
+
+  vars:
+    device:
+      ip_address: "{{ ansible_host }}"
+      username: "{{ ansible_user }}"
+      password: "{{ ansible_password }}"
+
+  tasks:
+    - name: Gather Cisco facts
+      ios_facts:
+      when: ansible_network_os == 'ios'
+
+    - name: Print Cisco hostname
+      debug:
+        var: ansible_net_hostname
+      when: ansible_network_os == 'ios'
+
+    - name: Print Cisco NTP servers
+      debug:
+        var: ansible_net_ntp
+      when: ansible_network_os == 'ios'
+
+    - name: Gather Palo Alto facts
+      paloaltonetworks.panos.panos_facts:
+        provider: "{{ device }}"
+      when: ansible_network_os == 'paloaltonetworks.panos.panos'
+
+    - name: Display Palo Alto hostname
+      debug:
+        msg: |
+          "Hostname: {{ ansible_facts['net_hostname'] }}"
+      when: ansible_network_os == 'paloaltonetworks.panos.panos'
+
+    - name: Display Palo Alto NTP servers
+      debug:
+        var: ansible_facts.ntp_servers
+      when: ansible_network_os == 'paloaltonetworks.panos.panos'
