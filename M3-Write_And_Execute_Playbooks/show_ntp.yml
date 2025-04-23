@@ -7,15 +7,15 @@
     - name: Gather Cisco facts
       ios_facts:
 
-    - name: Show NTP configuration on Cisco device
-      ios_command:
+    - name: Execute 'show ntp associations' command
+      cisco.ios.ios_command:
         commands:
-          - show running-config | include ntp
-      register: ntp_output
+          - show ntp associations
+      register: ntp_associations_output
 
-    - name: Print NTP configuration
+    - name: Display NTP associations
       debug:
-        var: ntp_output.stdout_lines
+        var: ntp_associations_output.stdout_lines
 
 - name: Check NTP configuration on Palo Alto device
   hosts: paloalto
