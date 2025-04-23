@@ -27,5 +27,5 @@
     - name: Display Palo Alto facts (hostname, serial, version)
       debug:
         msg: |
-          Hostname: {{ ansible_facts.hostname }}
+          "Hostname: {{ ansible_facts['net_hostname'] }}"
       when: ansible_network_os == 'paloaltonetworks.panos.panos'
