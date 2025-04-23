@@ -1,0 +1,16 @@
+- name: Gather high-level facts from Cisco and Palo Alto devices
+  hosts: all
+  gather_facts: no
+
+  tasks:
+    - name: Gather Cisco facts
+      ios_facts:
+      when: ansible_network_os == 'ios'
+
+    - name: Gather Palo Alto facts
+      paloaltonetworks.panos.panos_facts:
+        provider:
+          ip_address: "{{ ansible_host }}"
+          username: "{{ ansible_user }}"
+          password: "{{ ansible_password }}"
+      when: ansible_network_os == 'paloaltonetworks.panos.panos'
