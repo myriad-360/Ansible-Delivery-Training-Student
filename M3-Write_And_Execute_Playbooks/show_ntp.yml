@@ -29,9 +29,12 @@
     - name: Get current NTP configuration from Palo Alto
       paloaltonetworks.panos.panos_op:
         provider: "{{ device }}"
-        cmd: "show ntp servers"
+        cmd: "show ntp"
       register: ntp_output
     
+    - name: Print configured NTP servers
+      debug:
+        var: ntp_output.stdout
     - name: Print configured NTP server names from Palo Alto
       debug:
         msg:
@@ -39,6 +42,3 @@
           - "NTP Server 2: {{ ntp_output.stdout.response.result['ntp-server-2'].name }}"
       when: ntp_output.stdout.response is defined
    
-    - name: Print configured NTP servers
-      debug:
-        var: ntp_output.stdout
