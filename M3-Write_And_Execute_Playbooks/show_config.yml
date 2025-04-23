@@ -21,7 +21,7 @@
           password: "{{ ansible_password }}"
       when: ansible_network_os == 'paloaltonetworks.panos.panos'
 
-    - name: Print Palo Alto serial number
+    - name: Print Palo Alto hostname
       debug:
-        var: ansible_facts.serial
+        var: ansible_facts.hostname
       when: ansible_network_os == 'paloaltonetworks.panos.panos'
