@@ -16,7 +16,7 @@
 
     - name: Display gathered NTP configuration
       debug:
-        msg: "{{ ntp_config }}"
+        msg: "{{ ntp_config.gathered }}"
 
 - name: Check NTP configuration on Palo Alto device
   hosts: paloalto
