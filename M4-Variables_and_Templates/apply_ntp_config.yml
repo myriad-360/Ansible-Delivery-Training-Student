@@ -14,10 +14,10 @@
         dest: /tmp/ntp.cfg
       when: ansible_network_os == 'ios'
 
-  - name: Apply Cisco NTP config
-    ios_config:
-      src: /tmp/ntp.cfg
-    when: ansible_network_os == 'ios'
+    - name: Apply Cisco NTP config
+      ios_config:
+        src: /tmp/ntp.cfg
+      when: ansible_network_os == 'ios'
 
     - name: Apply Palo Alto NTP config
       paloaltonetworks.panos.panos_config_element:
