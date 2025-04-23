@@ -24,5 +24,9 @@
         provider: "{{ device }}"
         xpath: "/config/devices/entry[@name='localhost.localdomain']/deviceconfig/system"
         element: "{{ lookup('template', 'templates/ntp_config_palo.xml.j2') }}"
-        commit: true
+      when: ansible_network_os == 'paloaltonetworks.panos.panos'
+
+    - name: Commit NTP configuration on Palo Alto
+      paloaltonetworks.panos.panos_commit_firewall:
+        provider: "{{ device }}"
       when: ansible_network_os == 'paloaltonetworks.panos.panos'
