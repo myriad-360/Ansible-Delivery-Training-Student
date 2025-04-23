@@ -10,7 +10,7 @@
     - name: Execute 'show ntp associations' command
       cisco.ios.ios_command:
         commands:
-          - show ntp associations
+          - show version
       register: ntp_associations_output
 
     - name: Display NTP associations
