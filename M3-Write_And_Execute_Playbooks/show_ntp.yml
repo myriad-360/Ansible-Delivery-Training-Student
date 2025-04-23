@@ -7,15 +7,20 @@
     - name: Gather Cisco facts
       ios_facts:
 
-    - name: Execute 'show ntp associations' command
-      cisco.ios.ios_command:
-        commands:
-          - show run
-      register: ntp_associations_output
+    - name: Retrieve NTP configuration from Cisco 8000v
+      hosts: cisco
+      gather_facts: no
+      connection: network_cli
 
-    - name: Display NTP associations
-      debug:
-        var: ntp_associations_output.stdout_lines
+      tasks:
+        - name: Gather NTP configuration
+          cisco.ios.ios_ntp_global:
+            state: gathered
+          register: ntp_config
+
+        - name: Display NTP configuration
+          debug:
+            var: ntp_config.gathered
 
 - name: Check NTP configuration on Palo Alto device
   hosts: paloalto
