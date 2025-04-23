@@ -1,8 +1,6 @@
 ---
 - name: Print all facts from Cisco and Palo Alto devices
   hosts: all
-  gather_facts: no
-
   tasks:
     - name: Print all Cisco facts
       debug:
