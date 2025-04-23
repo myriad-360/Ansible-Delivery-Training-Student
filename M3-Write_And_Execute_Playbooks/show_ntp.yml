@@ -29,12 +29,7 @@
     - name: Get current NTP configuration from Palo Alto
       paloaltonetworks.panos.panos_op:
         provider: "{{ device }}"
-        cmd: |
-          <show>
-            <ntp>
-              <servers></servers>
-            </ntp>
-          </show>
+        cmd: "show ntp servers"
       register: ntp_output
 
     - name: Print configured NTP servers
