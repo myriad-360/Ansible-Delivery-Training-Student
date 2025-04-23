@@ -7,13 +7,15 @@
     - name: Gather Cisco facts
       ios_facts:
 
-    - name: Print Cisco hostname
-      debug:
-        var: ansible_net_hostname
+      - name: Show NTP configuration on Cisco device
+      ios_command:
+        commands:
+          - show run | include ntp
+      register: ntp_output
 
-    - name: Print Cisco NTP servers
+    - name: Print NTP configuration
       debug:
-        var: ansible_net_ntp
+        var: ntp_output.stdout_lines
 
 - name: Check NTP configuration on Palo Alto device
   hosts: paloalto
