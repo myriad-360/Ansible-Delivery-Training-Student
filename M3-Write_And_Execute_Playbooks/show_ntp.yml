@@ -7,7 +7,7 @@
     - name: Gather Cisco facts
       ios_facts:
 
-      - name: Show NTP configuration on Cisco device
+    - name: Show NTP configuration on Cisco device
       ios_command:
         commands:
           - show run | include ntp
