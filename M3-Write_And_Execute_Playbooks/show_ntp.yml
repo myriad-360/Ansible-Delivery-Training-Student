@@ -40,5 +40,5 @@
         msg:
           - "NTP Server 1: {{ ntp_output.stdout.response.result['ntp-server-1'].name }}"
           - "NTP Server 2: {{ ntp_output.stdout.response.result['ntp-server-2'].name }}"
-      when: "'response' in ntp_output.stdout"
+      when: ntp_output.stdout is mapping
    
