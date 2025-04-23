@@ -15,7 +15,6 @@
       debug:
         var: ansible_net_ntp
 
----
 - name: Check NTP configuration on Palo Alto device
   hosts: paloalto
   gather_facts: no
@@ -30,7 +29,12 @@
     - name: Get current NTP configuration from Palo Alto
       paloaltonetworks.panos.panos_op:
         provider: "{{ device }}"
-        cmd: "<show><ntp><servers></servers></ntp></show>"
+        cmd: |
+          <show>
+            <ntp>
+              <servers></servers>
+            </ntp>
+          </show>
       register: ntp_output
 
     - name: Print configured NTP servers
