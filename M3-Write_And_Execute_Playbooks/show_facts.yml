@@ -1,10 +1,9 @@
+- name: Print all Cisco facts
+  debug:
+    var: ansible_facts
+  when: ansible_network_os == 'ios'
 
-    - name: Print all Cisco facts
-      debug:
-        var: ansible_facts
-      when: ansible_network_os == 'ios'
-
-    - name: Print all Palo Alto facts
-      debug:
-        var: ansible_facts
-      when: ansible_network_os == 'paloaltonetworks.panos.panos'
+- name: Print all Palo Alto facts
+  debug:
+    var: ansible_facts
+  when: ansible_network_os == 'paloaltonetworks.panos.panos'
