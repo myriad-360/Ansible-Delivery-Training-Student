@@ -1,3 +1,4 @@
+---
 - name: Gather high-level facts from Cisco and Palo Alto devices
   hosts: all
   gather_facts: no
@@ -7,10 +8,20 @@
       ios_facts:
       when: ansible_network_os == 'ios'
 
+    - name: Print Cisco hostname
+      debug:
+        var: ansible_net_hostname
+      when: ansible_network_os == 'ios'
+
     - name: Gather Palo Alto facts
       paloaltonetworks.panos.panos_facts:
         provider:
           ip_address: "{{ ansible_host }}"
           username: "{{ ansible_user }}"
           password: "{{ ansible_password }}"
+      when: ansible_network_os == 'paloaltonetworks.panos.panos'
+
+    - name: Print Palo Alto serial number
+      debug:
+        var: ansible_facts.serial
       when: ansible_network_os == 'paloaltonetworks.panos.panos'
