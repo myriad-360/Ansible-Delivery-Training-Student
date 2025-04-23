@@ -1,0 +1,12 @@
+<ntp-servers>
+    {% if ntp_servers|length > 0 %}
+    <primary-ntp-server>
+    <ntp-server-address>{{ ntp_servers[0] }}</ntp-server-address>
+    </primary-ntp-server>
+    {% endif %}
+    {% if ntp_servers|length > 1 %}
+    <secondary-ntp-server>
+    <ntp-server-address>{{ ntp_servers[1] }}</ntp-server-address>
+    </secondary-ntp-server>
+    {% endif %}
+</ntp-servers>

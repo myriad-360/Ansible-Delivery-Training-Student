@@ -16,24 +16,38 @@ This module introduces writing playbooks for Cisco and Palo Alto network devices
 ### Example Playbook:
 
 ```yaml
+---
 - name: Gather high-level facts from Cisco and Palo Alto devices
   hosts: all
   gather_facts: no
+
+  vars:
+    device:
+      ip_address: "{{ ansible_host }}"
+      username: "{{ ansible_user }}"
+      password: "{{ ansible_password }}"
 
   tasks:
     - name: Gather Cisco facts
       ios_facts:
       when: ansible_network_os == 'ios'
 
+    - name: Print Cisco hostname
+      debug:
+        var: ansible_net_hostname
+      when: ansible_network_os == 'ios'
+
     - name: Gather Palo Alto facts
       paloaltonetworks.panos.panos_facts:
-        provider:
-          ip_address: "{{ ansible_host }}"
-          username: "{{ ansible_user }}"
-          password: "{{ ansible_password }}"
+        provider: "{{ device }}"
+      when: ansible_network_os == 'paloaltonetworks.panos.panos'
+
+    - name: Display Palo Alto facts (hostname, serial, version)
+      debug:
+        msg: |
+          "Hostname: {{ ansible_facts['net_hostname'] }}"
       when: ansible_network_os == 'paloaltonetworks.panos.panos'
 ```
 
 ### Optional Exercise:
-- Modify the playbook to set different hostnames per group using `group_vars`.
-- Add a `debug` task to confirm the hostname value per device before execution.
+- Modify the playbook to get other information from the palo besides the hostname

@@ -1,0 +1,22 @@
+- name: Deploy NTP configuration using templates
+  hosts: all
+  gather_facts: no
+  vars:
+    device:
+      ip_address: "{{ ansible_host }}"
+      username: "{{ ansible_user }}"
+      password: "{{ ansible_password }}"
+
+  tasks:
+    - name: Render Cisco NTP config
+      template:
+        src: templates/ntp_config.j2
+        dest: /tmp/ntp.cfg
+      when: ansible_network_os == 'ios'
+
+    - name: Apply Palo Alto NTP config
+      paloaltonetworks.panos.panos_config_element:
+        provider: "{{ device }}"
+        xpath: "/config/devices/entry[@name='localhost.localdomain']/deviceconfig/system"
+        element: "{{ lookup('template', 'templates/ntp_config_palo.xml.j2') }}"
+      when: ansible_network_os == 'paloaltonetworks.panos.panos'
