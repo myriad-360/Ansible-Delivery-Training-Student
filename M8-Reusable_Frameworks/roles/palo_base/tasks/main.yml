@@ -1,2 +1,12 @@
----
-# tasks file for roles/palo_base
+- name: Retrieve system info from Palo Alto
+  paloaltonetworks.panos.panos_op:
+    provider:
+      ip_address: "{{ ansible_host }}"
+      username: "{{ ansible_user }}"
+      password: "{{ ansible_password }}"
+    cmd: "show system info"
+  register: palo_info
+
+- name: Display Palo Alto system info
+  debug:
+    var: palo_info.stdout_lines

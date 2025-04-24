@@ -1,2 +1,8 @@
----
-# tasks file for roles/cisco_base
+- name: Show version on Cisco device
+  ios_command:
+    commands: show version
+  register: cisco_version
+
+- name: Display Cisco version output
+  debug:
+    var: cisco_version.stdout_lines

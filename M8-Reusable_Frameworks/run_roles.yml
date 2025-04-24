@@ -1,0 +1,16 @@
+- name: Run platform-specific base roles
+  hosts: all
+  gather_facts: no
+
+  pre_tasks:
+    - name: Set provider for Palo Alto
+      set_fact:
+        provider:
+          ip_address: "{{ ansible_host }}"
+          username: "{{ ansible_user }}"
+          password: "{{ ansible_password }}"
+      when: ansible_network_os == 'paloaltonetworks.panos.panos'
+
+  roles:
+    - { role: cisco_base, when: ansible_network_os == 'ios' }
+    - { role: palo_base, when: ansible_network_os == 'paloaltonetworks.panos.panos' }
