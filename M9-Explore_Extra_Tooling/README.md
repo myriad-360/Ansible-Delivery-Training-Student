@@ -13,23 +13,18 @@ This module focuses on extending Ansible’s capabilities using collections and 
 
 ### 🛠️ Live Demo Instructions
 
-1. **Search for a Collection**:
-   ```bash
-   ansible-galaxy collection search panos
-   ```
-   This command queries Ansible Galaxy for collections related to Palo Alto firewalls.
+1. **Search for a Collection**:  
+   > Use the [Ansible Galaxy website](https://galaxy.ansible.com) to search for collections manually.
 
 2. **Install a Collection**:
    ```bash
-   ansible-galaxy collection install paloaltonetworks.panos
-   ansible-galaxy collection install cisco.ios
+   ansible-galaxy collection install community.general
    ```
-   These commands download and install the required collections for Palo Alto and Cisco device management.
+   This command downloads and installs the `community.general` collection, which contains a wide variety of general-purpose modules and plugins.
 
 3. **Explore a Module with `ansible-doc`**:
    ```bash
-   ansible-doc paloaltonetworks.panos.panos_address_object
-   ansible-doc cisco.ios.ios_config
+   ansible-doc community.general.json_query
    ```
    Use this to inspect module documentation, usage examples, and available parameters.
 
