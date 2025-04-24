@@ -30,4 +30,6 @@
       rescue:
         - name: Handle Palo failure gracefully
           debug:
-            msg: "Failure caught for Palo Alto. Skipping Palo tasks."
+            msg: |
+              "Failure caught for Palo Alto. Skipping Palo tasks.
+              You can use rescue to log, roll back, or alert."
