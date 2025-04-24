@@ -35,28 +35,35 @@ ansible_password: !vault |
 
 ---
 
-### 2. do the same thing for a palo password and store it in `paloalto.yml`
+### 2. Encrypt a Palo Alto password and store it in `group_vars/paloalto.yml`
 
-Run this command (using the same password for now as a placeholder):
+Repeat the process used for Cisco, this time encrypting the Palo Alto login password.
+
+Run this command and set the same vault password when prompted:
 
 ```bash
 ansible-vault encrypt_string 'livestock Taco4' --name 'ansible_password'
 ```
 
-Create a new file called `paloalto.yml` and paste the encrypted key:
+Create or edit the file `group_vars/paloalto.yml` and paste in the encrypted output:
 
 ```yaml
-palo_api_key: !vault |
+ansible_user: labuser
+ansible_password: !vault |
           $ANSIBLE_VAULT;1.1;AES256
           # (vault text for 'livestock Taco4' will appear here)
           ...
 ```
 
-Then encrypt the entire file (if desired):
+This ensures the Palo Alto host group has its own securely encrypted credentials scoped to its group.
+
+If you'd prefer to encrypt the entire file instead of individual variables, you can do so with:
 
 ```bash
-ansible-vault encrypt vault.yml
+ansible-vault encrypt group_vars/paloalto.yml
 ```
+
+This will encrypt the full contents of the file, making it unreadable without the vault password. This approach is often used when all contents of a file are sensitive, but it can make version control harder to manage since diffs and merges are no longer human-readable.
 
 ---
 
@@ -98,5 +105,13 @@ palo_api_key: !vault |
           # (vault text for 'livestock Taco4' will appear here)
           ...
 ```
+
+To create this centralized vault file, you can start by creating a plain `vault.yml` file with the variables, then encrypt it using:
+
+```bash
+ansible-vault encrypt vault.yml
+```
+
+This command will encrypt the entire `vault.yml` file, securing all contained secrets at once.
 
 Then, refactor your playbooks to consume these variables from a single encrypted file using `vars_files`.
