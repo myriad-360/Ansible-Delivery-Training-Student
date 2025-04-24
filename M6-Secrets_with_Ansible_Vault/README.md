@@ -20,7 +20,7 @@ This module introduces how to use **Ansible Vault** to secure secrets like API k
 Run this command and provide a password when prompted:
 
 ```bash
-ansible-vault encrypt_string 'cisco-password-here' --name 'ansible_password'
+ansible-vault encrypt_string 'livestock Taco4' --name 'ansible_password'
 ```
 
 Copy the resulting encrypted variable block into `group_vars/cisco.yml` like this:
@@ -29,6 +29,7 @@ Copy the resulting encrypted variable block into `group_vars/cisco.yml` like thi
 ansible_user: labuser
 ansible_password: !vault |
           $ANSIBLE_VAULT;1.1;AES256
+          # (vault text for 'livestock Taco4' will appear here)
           ...
 ```
 
@@ -36,10 +37,10 @@ ansible_password: !vault |
 
 ### 2. Encrypt a Palo Alto API key and store it in `vault.yml`
 
-Run this command:
+Run this command (using the same password for now as a placeholder):
 
 ```bash
-ansible-vault encrypt_string 'palo-api-key-here' --name 'palo_api_key'
+ansible-vault encrypt_string 'livestock Taco4' --name 'palo_api_key'
 ```
 
 Create a new file called `vault.yml` and paste the encrypted key:
@@ -47,6 +48,7 @@ Create a new file called `vault.yml` and paste the encrypted key:
 ```yaml
 palo_api_key: !vault |
           $ANSIBLE_VAULT;1.1;AES256
+          # (vault text for 'livestock Taco4' will appear here)
           ...
 ```
 
@@ -88,10 +90,12 @@ Create a `vault.yml` file that contains both the Cisco and Palo Alto credentials
 ```yaml
 ansible_password: !vault |
           $ANSIBLE_VAULT;1.1;AES256
+          # (vault text for 'livestock Taco4' will appear here)
           ...
 
 palo_api_key: !vault |
           $ANSIBLE_VAULT;1.1;AES256
+          # (vault text for 'livestock Taco4' will appear here)
           ...
 ```
 
