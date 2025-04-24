@@ -1,0 +1,23 @@
+- name: Configure address objects on Palo Alto
+  hosts: paloalto
+  gather_facts: no
+
+  vars:
+    device:
+      ip_address: "{{ ansible_host }}"
+      username: "{{ ansible_user }}"
+      password: "{{ ansible_password }}"
+
+  tasks:
+    - name: Debug address objects
+      debug:
+        var: address_objects
+
+    - name: Create address objects
+      paloaltonetworks.panos.panos_address_object:
+        provider: "{{ device }}"
+        name: "{{ item.name }}"
+        value: "{{ item.ip }}"
+        description: "Created by Ansible"
+        address_type: "ip-netmask"
+      loop: "{{ address_objects }}"
