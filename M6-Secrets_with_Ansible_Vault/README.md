@@ -69,24 +69,45 @@ This will encrypt the full contents of the file, making it unreadable without th
 
 ### 3. Reference Vault Variables in Your Playbook
 
-In your Palo Alto playbook (e.g., `configure_address_objects.yml`), load the encrypted vault with `vars_files`:
+Here is a full playbook example showing how to reference variables stored in an encrypted Vault file:
 
+Create the file `configure_address_objects.yml` with the contents below
 ```yaml
-vars_files:
-  - vault.yml
+- name: Configure address objects on Palo Alto devices using Vault
+  hosts: paloalto
+  gather_facts: no
 
-vars:
-  provider:
-    ip_address: "{{ ansible_host }}"
-    username: "admin"
-    api_key: "{{ palo_api_key }}"
+  vars_files:
+    - vault.yml
+
+  vars:
+    provider:
+      ip_address: "{{ ansible_host }}"
+      username: "{{ ansible_user }}"
+      password: "{{ ansible_password }}"
+
+  tasks:
+    - name: Show address objects variable
+      debug:
+        var: address_objects
+
+    - name: Ensure address objects are configured
+      paloaltonetworks.panos.panos_address_object:
+        provider: "{{ provider }}"
+        name: "{{ item.name }}"
+        value: "{{ item.ip }}"
+        description: "Provisioned by Ansible with Vault"
+        address_type: "ip-netmask"
+      loop: "{{ address_objects }}"
 ```
 
-Make sure the playbook is executed with the vault password prompt:
+Run the playbook with the vault password prompt to decrypt credentials securely:
 
 ```bash
-ansible-playbook configure_address_objects.yml -i ../M1-Install_Ansible_and_Understand_Inventory/inventory.ini --ask-vault-pass
+ansible-playbook configure_address_objects.yml -i inventory-withvault.ini --ask-vault-pass
 ```
+
+This example assumes `ansible_password` is stored in `vault.yml` and `address_objects` is defined in `group_vars/paloalto.yml`.
 
 ---
 
