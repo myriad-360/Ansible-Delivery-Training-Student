@@ -14,3 +14,4 @@
   roles:
     - { role: cisco_base, when: ansible_network_os == 'ios' }
     - { role: palo_base, when: ansible_network_os == 'paloaltonetworks.panos.panos' }
+    
