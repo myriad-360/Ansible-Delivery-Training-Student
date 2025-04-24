@@ -83,27 +83,27 @@ touch configure_address_objects.yml
 Example `configure_address_objects.yml`:
 
 ```yaml
-- name: Configure address objects on Palo Alto
+- name: Configure address objects on Palo Alto devices
   hosts: paloalto
   gather_facts: no
 
   vars:
-    device:
+    provider:
       ip_address: "{{ ansible_host }}"
       username: "{{ ansible_user }}"
       password: "{{ ansible_password }}"
 
   tasks:
-    - name: Debug address objects
+    - name: Show address objects defined in group_vars
       debug:
         var: address_objects
 
-    - name: Create address objects
+    - name: Ensure address objects are configured
       paloaltonetworks.panos.panos_address_object:
-        provider: "{{ device }}"
+        provider: "{{ provider }}"
         name: "{{ item.name }}"
         value: "{{ item.ip }}"
-        description: "Created by Ansible"
+        description: "Configured via Ansible"
         address_type: "ip-netmask"
       loop: "{{ address_objects }}"
 ```
