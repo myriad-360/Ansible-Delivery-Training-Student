@@ -1,6 +1,3 @@
-
-
-
 ## 🧱 Module 9: Explore Extra Tooling
 
 This module focuses on extending Ansible’s capabilities using collections and the `ansible-doc` utility.

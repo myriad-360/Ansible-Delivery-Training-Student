@@ -8,7 +8,7 @@ This module introduces how to use variables and templates to create dynamic, reu
 - Render banners, interfaces, or NTP configurations based on device-specific data.
 
 ### Live Demo Steps:
-> **Note:** Run all commands from inside the `M4-Variables_and_Templates/` directory. The `group_vars/` and `templates/` folders are located here. Use `-i ../M1-Install_Ansible_and_Understand_Inventory/inventory.ini` when running Ansible.
+> **Note:** Run all commands from inside the `M4-Variables_and_Templates/` directory. 
 1. Create `group_vars` directories and files for Cisco and Palo Alto groups:
    ```bash
    mkdir -p group_vars
@@ -61,6 +61,29 @@ This module introduces how to use variables and templates to create dynamic, reu
      {% endif %}
    </ntp-servers>
    ```
+  1. Example rendered content
+     
+  ### Example Rendered templates
+
+  When the playbook runs, the following templates will be rendered based on group-specific variables:
+
+  **Cisco (ios)**:
+  ```text
+  ntp server 192.0.2.1
+  ntp server 192.0.2.2
+  ```
+
+  **Palo Alto (XML-style)**:
+  ```xml
+  <ntp-servers>
+    <primary-ntp-server>
+      <ntp-server-address>192.0.2.1</ntp-server-address>
+    </primary-ntp-server>
+    <secondary-ntp-server>
+      <ntp-server-address>192.0.2.2</ntp-server-address>
+    </secondary-ntp-server>
+  </ntp-servers>
+  ```
 
 4. Create a playbook to render or apply NTP configuration:
    ```bash

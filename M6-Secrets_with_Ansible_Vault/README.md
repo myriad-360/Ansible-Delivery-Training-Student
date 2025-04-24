@@ -57,7 +57,7 @@ ansible_password: !vault |
 
 This ensures the Palo Alto host group has its own securely encrypted credentials scoped to its group.
 
-If you'd prefer to encrypt the entire file instead of individual variables, you can do so with:
+Encrypt the entire file instead of individual variables, you can do so with:
 
 ```bash
 ansible-vault encrypt group_vars/paloalto.yml
@@ -114,5 +114,9 @@ Run the playbook with the vault password prompt to decrypt credentials securely:
 ansible-playbook gather_device_facts_with_vault.yml -i inventory-withvault.ini --ask-vault-pass
 ```
 
-This example assumes `ansible_password` is stored in `cisco.yml` and `paloalto.yml` and device-specific variables are defined in `group_vars` files.
-Also, note that we're using the local directory `inventory-withvault.ini` file
+### Important Notes
+- This example assumes `ansible_password` is stored in `cisco.yml` and `paloalto.yml` and device-specific variables are defined in `group_vars` files.
+- Also, note that we're using the local directory `inventory-withvault.ini` file
+- Even though these files are encrypted, it's still advised to avoid committing them to source control
+
+

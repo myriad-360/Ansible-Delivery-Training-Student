@@ -1,6 +1,15 @@
 ## 🧪 Module 3: Write and Execute Playbooks
 
-This module introduces writing playbooks for Cisco and Palo Alto network devices.
+This module focuses on writing and executing basic Ansible playbooks that interact with both Cisco and Palo Alto network devices. Students will gain hands-on experience defining tasks, using network modules, applying conditionals, and running Ansible in dry-run mode.
+
+Playbooks allow you to define a set of instructions that Ansible executes in order. Each task runs a module with specific parameters, and logic can be applied to target specific platforms differently based on device type. This module teaches the foundational building blocks for all network automation workflows.
+
+### Concepts Covered:
+- Playbook structure (YAML format)
+- Tasks and modules
+- Conditional logic using `when`
+- Running in dry-run mode with `--check`
+- Platform-specific modules: `ios_facts`, `panos_facts`
 
 ### Objectives:
 - Learn how to write and execute Ansible playbooks.
@@ -8,10 +17,12 @@ This module introduces writing playbooks for Cisco and Palo Alto network devices
 - Run tasks in check mode to simulate changes.
 
 ### Live Demo Steps:
-1. Write a playbook that sets hostnames for both Cisco and Palo Alto devices.
-2. Use `ios_config` for Cisco and `panos_config_element` for Palo Alto.
-3. Use `when` statements to apply logic based on `ansible_network_os`.
-4. Run the playbook using `--check` to demonstrate dry-run behavior.
+1. Create a new playbook that applies to all devices (`hosts: all`) and disables fact gathering (`gather_facts: no`).
+2. Define device connection variables using `ansible_host`, `ansible_user`, and `ansible_password`.
+3. Use the `ios_facts` module to gather information from Cisco devices. Wrap the task in a `when` clause to target only IOS devices.
+4. Print the Cisco hostname using the `debug` module, again gated by a `when` clause.
+5. Use `panos_facts` to gather data from Palo Alto devices by passing in the device connection dictionary.
+6. Display key facts from the Palo Alto device (e.g., hostname, serial number, software version) using `debug`.
 
 ### Example Playbook:
 
@@ -49,5 +60,19 @@ This module introduces writing playbooks for Cisco and Palo Alto network devices
       when: ansible_network_os == 'paloaltonetworks.panos.panos'
 ```
 
+### Running the Playbook
+
+To perform a dry run (no changes are made, but you can preview what would happen):
+
+```bash
+ansible-playbook -i ../M1-Install_Ansible_and_Understand_Inventory/inventory.ini show_facts.yml --check
+```
+
+To execute the playbook against your inventory, use the `ansible-playbook` command:
+
+```bash
+ansible-playbook -i ../M1-Install_Ansible_and_Understand_Inventory/inventory.ini show_facts.yml
+```
+
 ### Optional Exercise:
-- Modify the playbook to get other information from the palo besides the hostname
+- Expand the playbook to retrieve additional details from the Palo Alto firewall such as the software version, serial number, or interface information. Use the `debug` module to print each value clearly.
