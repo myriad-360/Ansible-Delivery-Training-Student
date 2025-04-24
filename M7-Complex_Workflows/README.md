@@ -55,7 +55,9 @@ touch tasks/palo_tasks.yml
 
 ### 2. Create the playbook
 
-Create a main playbook to include the vendor-specific task files dynamically:
+This playbook uses a `block` to group Palo Alto-related tasks and a `rescue` to catch errors.
+- If any task in the `block` fails, the `rescue` section is triggered.
+- In this demo, a simulated failure (`/bin/false`) forces the rescue to demonstrate fault tolerance.
 
 ```bash
 touch complex_workflow.yml
@@ -95,7 +97,9 @@ touch complex_workflow.yml
       rescue:
         - name: Handle Palo failure gracefully
           debug:
-            msg: "Failure caught for Palo Alto. Skipping Palo tasks."
+            msg: |
+              "Failure caught for Palo Alto. Skipping Palo tasks.
+              You can use rescue to log, roll back, or alert."
 ```
 
 ---
