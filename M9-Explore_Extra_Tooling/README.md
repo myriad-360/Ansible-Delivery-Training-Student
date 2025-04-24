@@ -14,17 +14,22 @@ This module focuses on extending Ansible’s capabilities using collections and 
 ### 🛠️ Live Demo Instructions
 
 1. **Search for a Collection**:  
-   > Use the [Ansible Galaxy website](https://galaxy.ansible.com) to search for collections manually.
-
+   1. Use the [Ansible Galaxy website](https://galaxy.ansible.com), navigate to "Search" on the left hand side bar, and search for "Juniper"
+   2. Select "apstra" entry which shows you the "juniper.apstra" collection
+   3. Review the install tab
+   4. Review the "Documentation" tab
+   5. Click on one of the modules listed on the left hand side bar, for example "apstra_facts"
+      1. Note the examples section
 2. **Install a Collection**:
    ```bash
-   ansible-galaxy collection install community.general
+   ansible-galaxy collection install juniper.apstra
    ```
-   This command downloads and installs the `community.general` collection, which contains a wide variety of general-purpose modules and plugins.
+   This command downloads and installs the `juniper.apstra` collection, which provides a set of Ansible modules and roles for network management via the Juniper Apstra platform
 
 3. **Explore a Module with `ansible-doc`**:
+   the `ansible-doc` command also provides the ability to review documentation.
    ```bash
-   ansible-doc community.general.json_query
+   ansible-doc juniper.apstra.apstra_facts
    ```
    Use this to inspect module documentation, usage examples, and available parameters.
 
