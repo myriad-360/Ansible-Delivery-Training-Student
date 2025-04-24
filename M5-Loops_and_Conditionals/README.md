@@ -148,6 +148,38 @@ show running-config | section interface Loopback
 
 ---
 
+### 🔎 Validation (Palo Alto)
+
+You can validate the address objects on the Palo Alto firewall using either the CLI or the web UI.
+
+**Using CLI:**
+
+SSH into the firewall:
+
+```bash
+ssh {{ ansible_user }}@{{ ansible_host }}
+```
+
+Enter configuration mode:
+
+```bash
+configure
+```
+
+Display configured address objects:
+
+```bash
+show address
+```
+
+**Using Web UI:**
+
+1. Log into the Palo Alto Web UI at: `https://{{ ansible_host }}`
+2. Go to **Objects** → **Addresses**
+3. Look for the address objects named `WebServer`, `DBServer`, etc., as defined in your playbook.
+
+---
+
 ### Optional Exercise
 
 Write a teardown playbook that removes loopback interfaces or address objects by looping over the same variables and setting the `state` to `absent` where supported.
