@@ -1,0 +1,33 @@
+- name: Run complex workflow per vendor
+  hosts: all
+  gather_facts: no
+
+  vars_files:
+    - ../M6-Secrets_with_Ansible_Vault/group_vars/cisco.yml
+    - ../M6-Secrets_with_Ansible_Vault/group_vars/paloalto.yml
+
+  vars:
+    device:
+      ip_address: "{{ ansible_host }}"
+      username: "{{ ansible_user }}"
+      password: "{{ ansible_password }}"
+
+  tasks:
+    - name: Execute Cisco tasks
+      include_tasks: tasks/cisco_tasks.yml
+      when: ansible_network_os == 'ios'
+
+    - name: Execute Palo tasks in block with simulated failure
+      block:
+        - name: Simulate a failure
+          command: /bin/false
+          when: ansible_network_os == 'paloaltonetworks.panos.panos'
+
+        - name: Include Palo tasks
+          include_tasks: tasks/palo_tasks.yml
+          when: ansible_network_os == 'paloaltonetworks.panos.panos'
+
+      rescue:
+        - name: Handle Palo failure gracefully
+          debug:
+            msg: "Failure caught for Palo Alto. Skipping Palo tasks."

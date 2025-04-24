@@ -1,0 +1,9 @@
+- name: Retrieve Palo Alto system info
+  paloaltonetworks.panos.panos_op:
+    provider: "{{ device }}"
+    cmd: "show system info"
+  register: palo_output
+
+- name: Print Palo Alto output
+  debug:
+    var: palo_output.stdout_lines

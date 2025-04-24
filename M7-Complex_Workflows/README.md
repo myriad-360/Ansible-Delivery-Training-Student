@@ -68,7 +68,8 @@ touch complex_workflow.yml
   gather_facts: no
 
   vars_files:
-    - ../M6-Secrets_with_Ansible_Vault/vault.yml
+    - ../M6-Secrets_with_Ansible_Vault/group_vars/cisco.yml
+    - ../M6-Secrets_with_Ansible_Vault/group_vars/paloalto.yml
 
   vars:
     device:
