@@ -114,32 +114,5 @@ Run the playbook with the vault password prompt to decrypt credentials securely:
 ansible-playbook gather_device_facts_with_vault.yml -i inventory-withvault.ini --ask-vault-pass
 ```
 
-This example assumes `ansible_password` is stored in `vault.yml` and device-specific variables are defined in `group_vars` files.
-
----
-
-### Optional Exercise
-
-Create a `vault.yml` file that contains both the Cisco and Palo Alto credentials:
-
-```yaml
-ansible_password: !vault |
-          $ANSIBLE_VAULT;1.1;AES256
-          # (vault text for 'livestock Taco4' will appear here)
-          ...
-
-palo_api_key: !vault |
-          $ANSIBLE_VAULT;1.1;AES256
-          # (vault text for 'livestock Taco4' will appear here)
-          ...
-```
-
-To create this centralized vault file, you can start by creating a plain `vault.yml` file with the variables, then encrypt it using:
-
-```bash
-ansible-vault encrypt vault.yml
-```
-
-This command will encrypt the entire `vault.yml` file, securing all contained secrets at once.
-
-Then, refactor your playbooks to consume these variables from a single encrypted file using `vars_files`.
+This example assumes `ansible_password` is stored in `cisco.yml` and `paloalto.yml` and device-specific variables are defined in `group_vars` files.
+Also, note that we're using the local directory `inventory-withvault.ini` file
