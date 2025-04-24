@@ -69,45 +69,52 @@ This will encrypt the full contents of the file, making it unreadable without th
 
 ### 3. Reference Vault Variables in Your Playbook
 
-Here is a full playbook example showing how to reference variables stored in an encrypted Vault file:
+Here is a full playbook example showing how to gather high-level facts from both Cisco and Palo Alto devices using Vault-managed credentials:
 
-Create the file `configure_address_objects.yml` with the contents below
+Create the file `gather_device_facts_with_vault.yml` with the contents below
 ```yaml
-- name: Configure address objects on Palo Alto devices using Vault
-  hosts: paloalto
+- name: Gather high-level facts from Cisco and Palo Alto devices using Vault
+  hosts: all
   gather_facts: no
 
   vars_files:
     - vault.yml
 
   vars:
-    provider:
+    device:
       ip_address: "{{ ansible_host }}"
       username: "{{ ansible_user }}"
       password: "{{ ansible_password }}"
 
   tasks:
-    - name: Show address objects variable
-      debug:
-        var: address_objects
+    - name: Gather Cisco facts
+      ios_facts:
+      when: ansible_network_os == 'ios'
 
-    - name: Ensure address objects are configured
-      paloaltonetworks.panos.panos_address_object:
-        provider: "{{ provider }}"
-        name: "{{ item.name }}"
-        value: "{{ item.ip }}"
-        description: "Provisioned by Ansible with Vault"
-        address_type: "ip-netmask"
-      loop: "{{ address_objects }}"
+    - name: Print Cisco hostname
+      debug:
+        var: ansible_net_hostname
+      when: ansible_network_os == 'ios'
+
+    - name: Gather Palo Alto facts
+      paloaltonetworks.panos.panos_facts:
+        provider: "{{ device }}"
+      when: ansible_network_os == 'paloaltonetworks.panos.panos'
+
+    - name: Display Palo Alto facts (hostname)
+      debug:
+        msg: |
+          Hostname: {{ ansible_facts['net_hostname'] }}
+      when: ansible_network_os == 'paloaltonetworks.panos.panos'
 ```
 
 Run the playbook with the vault password prompt to decrypt credentials securely:
 
 ```bash
-ansible-playbook configure_address_objects.yml -i inventory-withvault.ini --ask-vault-pass
+ansible-playbook gather_device_facts_with_vault.yml -i inventory-withvault.ini --ask-vault-pass
 ```
 
-This example assumes `ansible_password` is stored in `vault.yml` and `address_objects` is defined in `group_vars/paloalto.yml`.
+This example assumes `ansible_password` is stored in `vault.yml` and device-specific variables are defined in `group_vars` files.
 
 ---
 
