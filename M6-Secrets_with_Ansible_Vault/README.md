@@ -35,15 +35,15 @@ ansible_password: !vault |
 
 ---
 
-### 2. Encrypt a Palo Alto API key and store it in `vault.yml`
+### 2. do the same thing for a palo password and store it in `paloalto.yml`
 
 Run this command (using the same password for now as a placeholder):
 
 ```bash
-ansible-vault encrypt_string 'livestock Taco4' --name 'palo_api_key'
+ansible-vault encrypt_string 'livestock Taco4' --name 'ansible_password'
 ```
 
-Create a new file called `vault.yml` and paste the encrypted key:
+Create a new file called `paloalto.yml` and paste the encrypted key:
 
 ```yaml
 palo_api_key: !vault |
