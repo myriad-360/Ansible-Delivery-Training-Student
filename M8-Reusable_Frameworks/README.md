@@ -91,6 +91,29 @@ touch run_roles.yml
 ```
 
 ---
+This is a breakdown of each file and directory in an ansible role
+
+```
+.
+├── defaults                  # Contains the lowest precedence default variables
+│   └── main.yml             # Default variables for the role
+├── files                    # Static files to be copied to target systems
+├── handlers                 # Notification-triggered actions (e.g., restart services)
+│   └── main.yml             # Defines handlers used in this role
+├── meta                     # Role metadata and dependencies
+│   └── main.yml             # Role information: author, license, dependencies
+├── README.md                # Role documentation with usage examples
+├── tasks                    # Main set of automation tasks for the role
+│   └── main.yml             # Primary task list entry point for the role
+├── templates                # Jinja2 templates rendered for remote deployment
+├── tests                    # Files for local or CI/CD testing of the role
+│   ├── inventory            # Sample inventory file for testing
+│   └── test.yml             # Test playbook applying the role
+└── vars                     # Higher precedence variables (harder to override)
+    └── main.yml             # Role-specific variable definitions
+```
+
+---
 
 ### 4. Run the Playbook
 
