@@ -35,11 +35,8 @@ This module focuses on extending Ansible’s capabilities using collections and 
 
 ### 🧪 Optional Exercise
 
-Try installing a different collection from Galaxy and test one of its modules on a device in your lab environment. For example:
+Try looking at different collections from Galaxy and test one of its modules on a device in your lab environment. For example:
 
-```bash
-ansible-galaxy collection install junipernetworks.junos
-ansible-doc junipernetworks.junos.junos_interface
-```
-
-Then write a quick playbook to test it against your Juniper device (if available).
+1. Search for "arista"
+2. Review the install notes and documentation for "arista.avd"
+3. Install arista.avd in your environment and review the documentation
