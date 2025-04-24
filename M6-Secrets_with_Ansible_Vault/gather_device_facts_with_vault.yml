@@ -1,0 +1,33 @@
+- name: Gather high-level facts from Cisco and Palo Alto devices using Vault
+  hosts: all
+  gather_facts: no
+
+  vars_files:
+    - vault.yml
+
+  vars:
+    device:
+      ip_address: "{{ ansible_host }}"
+      username: "{{ ansible_user }}"
+      password: "{{ ansible_password }}"
+
+  tasks:
+    - name: Gather Cisco facts
+      ios_facts:
+      when: ansible_network_os == 'ios'
+
+    - name: Print Cisco hostname
+      debug:
+        var: ansible_net_hostname
+      when: ansible_network_os == 'ios'
+
+    - name: Gather Palo Alto facts
+      paloaltonetworks.panos.panos_facts:
+        provider: "{{ device }}"
+      when: ansible_network_os == 'paloaltonetworks.panos.panos'
+
+    - name: Display Palo Alto facts (hostname)
+      debug:
+        msg: |
+          Hostname: {{ ansible_facts['net_hostname'] }}
+      when: ansible_network_os == 'paloaltonetworks.panos.panos'
