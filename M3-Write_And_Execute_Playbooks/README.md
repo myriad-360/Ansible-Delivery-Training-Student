@@ -26,6 +26,7 @@ Playbooks allow you to define a set of instructions that Ansible executes in ord
 
 ### Example Playbook:
 
+Create a new file `show_config.yml`
 ```yaml
 ---
 - name: Gather high-level facts from Cisco and Palo Alto devices
