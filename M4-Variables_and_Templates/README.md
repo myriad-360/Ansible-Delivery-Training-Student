@@ -37,6 +37,7 @@ This module introduces how to use variables and templates to create dynamic, reu
    ```bash
    mkdir -p templates
    touch templates/ntp_config.j2
+   touch templates/ntp_config_palo.xml.j2
    ```
 
    Example `M4-Variables_and_Templates/templates/ntp_config.j2` (Cisco-style):
