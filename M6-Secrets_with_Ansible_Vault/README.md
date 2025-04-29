@@ -104,7 +104,7 @@ Create the file `gather_device_facts_with_vault.yml` with the contents below
     - name: Display Palo Alto facts (hostname)
       debug:
         msg: |
-          Hostname: {{ ansible_facts['net_hostname'] }}
+          Hostname: "{{ ansible_facts['net_hostname'] }}"
       when: ansible_network_os == 'paloaltonetworks.panos.panos'
 ```
 
