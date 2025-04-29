@@ -1,4 +1,4 @@
-## 🔁 Module 8: Automate Complex Workflows
+## 🔁 Module 7: Automate Complex Workflows
 
 This module focuses on building resilient, modular, and vendor-aware workflows in Ansible using features like `include_tasks`, `block`, and `rescue`.
 
@@ -11,7 +11,7 @@ This module focuses on building resilient, modular, and vendor-aware workflows i
 
 ### Live Demo Steps
 
-> **Note:** Run these steps from inside the `M8-Complex_Workflows/` directory. Use the inventory file from Module 6: `inventory-withvault.ini`.
+> **Note:** Run these steps from inside the `M7-Complex_Workflows/` directory. Use the inventory file from Module 6: `inventory-withvault.ini`.
 
 ---
 
