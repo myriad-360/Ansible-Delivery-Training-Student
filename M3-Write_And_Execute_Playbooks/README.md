@@ -66,13 +66,13 @@ Create a new file `show_config.yml`
 To perform a dry run (no changes are made, but you can preview what would happen):
 
 ```bash
-ansible-playbook -i ../M1-Install_Ansible_and_Understand_Inventory/inventory.ini show_facts.yml --check
+ansible-playbook -i ../M1-Install_Ansible_and_Understand_Inventory/inventory.ini show_config.yml --check
 ```
 
 To execute the playbook against your inventory, use the `ansible-playbook` command:
 
 ```bash
-ansible-playbook -i ../M1-Install_Ansible_and_Understand_Inventory/inventory.ini show_facts.yml
+ansible-playbook -i ../M1-Install_Ansible_and_Understand_Inventory/inventory.ini show_config.yml
 ```
 
 ### Optional Exercise:
